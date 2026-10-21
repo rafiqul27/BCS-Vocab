@@ -148,7 +148,6 @@ export const PracticeQuizView: React.FC<PracticeQuizViewProps> = ({
     }
   };
 
-  // Render sentence with blanked target word for "Blank" quiz mode
   const renderBlankedSentence = (sentence: string, target: string, revealed: boolean) => {
     const cleanTarget = target.replace(/[^a-zA-Z]/g, '');
     if (!cleanTarget || cleanTarget.length < 3) return sentence;
@@ -162,7 +161,7 @@ export const PracticeQuizView: React.FC<PracticeQuizViewProps> = ({
           className={`inline-block font-bold px-2 py-0.5 mx-0.5 rounded-md border-b-2 ${
             revealed
               ? 'bg-emerald-500/20 border-emerald-500 text-emerald-600 dark:text-emerald-300'
-              : 'bg-indigo-500/15 border-indigo-500 text-transparent select-none min-w-[72px]'
+              : 'bg-indigo-500/15 border-indigo-500 text-transparent select-none min-w-[76px]'
           }`}
         >
           {revealed ? part : '_______'}
@@ -181,29 +180,29 @@ export const PracticeQuizView: React.FC<PracticeQuizViewProps> = ({
         }`}
       >
         <div
-          className={`w-12 h-12 rounded-2xl flex items-center justify-center mb-3 ${
+          className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-3 ${
             darkMode ? 'bg-indigo-500/15 text-indigo-400' : 'bg-indigo-50 text-indigo-600'
           }`}
         >
-          <BookOpen className="w-6 h-6" />
+          <BookOpen className="w-7 h-7" />
         </div>
-        <h2 className="text-lg font-bold font-display">No Learned Words Yet</h2>
-        <p className={`mt-1 text-xs max-w-xs ${darkMode ? 'text-slate-400' : 'text-slate-500'}`}>
+        <h2 className="text-xl font-bold font-display">No Learned Words Yet</h2>
+        <p className={`mt-1 text-sm max-w-xs ${darkMode ? 'text-slate-400' : 'text-slate-500'}`}>
           Confirm a cluster in Daily Goal first, or quick-start below.
         </p>
 
-        <div className="mt-5 flex gap-2.5 w-full max-w-xs">
+        <div className="mt-5 flex gap-3 w-full max-w-xs">
           <button
             type="button"
             onClick={onGoToDailyGoal}
-            className="flex-1 h-11 px-4 rounded-xl bg-indigo-600 text-white text-xs font-semibold hover:bg-indigo-500 transition-colors"
+            className="flex-1 h-12 px-4 rounded-xl bg-indigo-600 text-white text-sm font-bold hover:bg-indigo-500 transition-colors"
           >
             Daily Goal
           </button>
           <button
             type="button"
             onClick={onQuickConfirmFirstSet}
-            className={`flex-1 h-11 px-4 rounded-xl border text-xs font-semibold transition-colors ${
+            className={`flex-1 h-12 px-4 rounded-xl border text-sm font-bold transition-colors ${
               darkMode
                 ? 'border-slate-700 text-slate-200 hover:bg-slate-800'
                 : 'border-slate-200 text-slate-700 hover:bg-slate-50'
@@ -224,15 +223,15 @@ export const PracticeQuizView: React.FC<PracticeQuizViewProps> = ({
             darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200 shadow-2xs'
           }`}
         >
-          {/* Compact Top Strip + Word Header */}
+          {/* Top Header Strip with Larger Font & Controls */}
           <div className="pb-2 border-b border-slate-200/70 dark:border-slate-800 shrink-0 space-y-1.5">
             <div className="flex items-center justify-between gap-1.5">
-              <div className="flex items-center gap-1.5 text-xs font-mono-num min-w-0">
-                <span className="font-bold">
+              <div className="flex items-center gap-1.5 text-sm font-mono-num min-w-0">
+                <span className="font-extrabold">
                   {currentIndex + 1}/{Math.max(1, sessionWordIds.length)}
                 </span>
                 <span aria-hidden="true" className="opacity-35">·</span>
-                <span className="opacity-65">#{String(activeWord.id).padStart(3, '0')}</span>
+                <span className="opacity-70">#{String(activeWord.id).padStart(3, '0')}</span>
                 <span aria-hidden="true" className="opacity-35">·</span>
                 <span
                   className={
@@ -249,7 +248,7 @@ export const PracticeQuizView: React.FC<PracticeQuizViewProps> = ({
                 </span>
               </div>
 
-              <div className="flex items-center gap-1 shrink-0">
+              <div className="flex items-center gap-1.5 shrink-0">
                 <button
                   type="button"
                   onClick={() => {
@@ -258,21 +257,20 @@ export const PracticeQuizView: React.FC<PracticeQuizViewProps> = ({
                     buildDeck(next);
                   }}
                   title="Filter newly learned words"
-                  className={`h-7 px-2 rounded-lg text-[11px] font-mono-num border flex items-center gap-1 transition-colors ${
+                  className={`h-9 px-2.5 rounded-xl text-xs font-mono-num border flex items-center gap-1 transition-colors ${
                     filterPriority === 'newly_learned'
                       ? 'bg-amber-500 text-white border-amber-500 font-bold'
                       : darkMode
-                      ? 'border-slate-800 text-slate-400 hover:bg-slate-800'
-                      : 'border-slate-200 text-slate-600 hover:bg-slate-50'
+                      ? 'border-slate-800 text-slate-300 hover:bg-slate-800'
+                      : 'border-slate-200 text-slate-700 hover:bg-slate-50'
                   }`}
                 >
-                  <Sparkles className="w-3 h-3" />
+                  <Sparkles className="w-3.5 h-3.5" />
                   <span>{newlyLearnedCount}</span>
                 </button>
 
-                {/* 3 Quiz Modes: Card | MCQ | Blank */}
                 <div
-                  className={`flex items-center p-0.5 rounded-lg border ${
+                  className={`flex items-center p-0.5 rounded-xl border ${
                     darkMode ? 'bg-slate-950 border-slate-800' : 'bg-slate-100 border-slate-200/70'
                   }`}
                 >
@@ -291,12 +289,12 @@ export const PracticeQuizView: React.FC<PracticeQuizViewProps> = ({
                         setIsFlipped(false);
                         setSelectedOptionId(null);
                       }}
-                      className={`px-2 py-0.5 rounded-md text-[11px] font-semibold transition-colors ${
+                      className={`h-8 px-2.5 rounded-lg text-xs font-bold transition-colors ${
                         quizMode === m.id
                           ? darkMode
                             ? 'bg-slate-800 text-white'
                             : 'bg-white text-slate-900 shadow-2xs'
-                          : 'opacity-60'
+                          : 'opacity-65'
                       }`}
                     >
                       {m.label}
@@ -308,47 +306,46 @@ export const PracticeQuizView: React.FC<PracticeQuizViewProps> = ({
                   type="button"
                   onClick={() => buildDeck(filterPriority)}
                   title="Reset queue"
-                  className={`h-7 w-7 rounded-lg border flex items-center justify-center transition-colors ${
+                  className={`h-9 w-9 rounded-xl border flex items-center justify-center transition-colors ${
                     darkMode
-                      ? 'border-slate-800 text-slate-400 hover:bg-slate-800'
-                      : 'border-slate-200 text-slate-600 hover:bg-slate-50'
+                      ? 'border-slate-800 text-slate-300 hover:bg-slate-800'
+                      : 'border-slate-200 text-slate-700 hover:bg-slate-50'
                   }`}
                 >
-                  <RotateCcw className="w-3.5 h-3.5" />
+                  <RotateCcw className="w-4 h-4" />
                 </button>
               </div>
             </div>
 
-            {/* Word Headline (Hidden until answered in Blank Mode) */}
             {quizMode !== 'blank' && (
               <div className="flex items-center justify-between gap-2">
-                <div className="flex items-baseline gap-2 min-w-0 flex-wrap">
-                  <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight font-display break-words">
+                <div className="flex items-baseline gap-2.5 min-w-0 flex-wrap">
+                  <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight font-display break-words">
                     {activeWord.word}
                   </h1>
-                  <span className="text-xs font-mono-num font-semibold text-indigo-600 dark:text-indigo-400">
+                  <span className="text-sm font-mono-num font-bold text-indigo-600 dark:text-indigo-400">
                     {activeWord.partOfSpeech}
                   </span>
                 </div>
 
-                <div className="flex items-center gap-1.5 shrink-0">
+                <div className="flex items-center gap-2 shrink-0">
                   <button
                     type="button"
                     onClick={() => handleSpeak(activeWord.word, 0.68)}
                     aria-label="Slow pronunciation"
-                    className={`h-9 w-9 rounded-xl flex items-center justify-center transition-colors ${
+                    className={`h-11 w-11 rounded-xl flex items-center justify-center transition-colors ${
                       darkMode
-                        ? 'bg-slate-800 text-slate-300 hover:bg-slate-700'
+                        ? 'bg-slate-800 text-slate-200 hover:bg-slate-700'
                         : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
                     }`}
                   >
-                    <Turtle className="w-4 h-4" />
+                    <Turtle className="w-5 h-5" />
                   </button>
                   <button
                     type="button"
                     onClick={() => handleSpeak(activeWord.word, 0.92)}
                     aria-label="Pronounce word"
-                    className={`h-9 w-9 rounded-xl flex items-center justify-center transition-colors ${
+                    className={`h-11 w-11 rounded-xl flex items-center justify-center transition-colors ${
                       speaking
                         ? 'bg-indigo-600 text-white'
                         : darkMode
@@ -356,32 +353,31 @@ export const PracticeQuizView: React.FC<PracticeQuizViewProps> = ({
                         : 'bg-indigo-50 text-indigo-700 hover:bg-indigo-100'
                     }`}
                   >
-                    <Volume2 className="w-4 h-4" />
+                    <Volume2 className="w-5 h-5" />
                   </button>
                 </div>
               </div>
             )}
           </div>
 
-          {/* Vertically Stretched Body: Flashcard | MCQ | Fill-in-the-Blank */}
+          {/* Vertically Stretched Body with Larger Fonts & Buttons */}
           {quizMode === 'flashcard' ? (
             <div className="flex-1 flex flex-col gap-2 min-h-0 overflow-hidden">
               {!isFlipped ? (
                 <button
                   type="button"
                   onClick={() => setIsFlipped(true)}
-                  className={`flex-1 w-full rounded-2xl border-2 border-dashed flex flex-col items-center justify-center gap-2 transition-all ${
+                  className={`flex-1 w-full rounded-2xl border-2 border-dashed flex flex-col items-center justify-center gap-2.5 transition-all ${
                     darkMode
-                      ? 'border-slate-800 bg-slate-800/20 hover:bg-slate-800/40 text-slate-300'
-                      : 'border-slate-200 bg-slate-50/70 hover:bg-slate-100/70 text-slate-700'
+                      ? 'border-slate-800 bg-slate-800/20 hover:bg-slate-800/40 text-slate-200'
+                      : 'border-slate-200 bg-slate-50/70 hover:bg-slate-100/70 text-slate-800'
                   }`}
                 >
-                  <Eye className="w-7 h-7 text-indigo-500" />
-                  <span className="text-base font-bold font-display">Tap to Reveal</span>
+                  <Eye className="w-8 h-8 text-indigo-500" />
+                  <span className="text-lg sm:text-xl font-bold font-display">Tap to Reveal</span>
                 </button>
               ) : (
                 <>
-                  {/* Meaning Panel Stretches Proportionally */}
                   <div
                     className={`flex-1 p-3.5 rounded-xl border flex flex-col justify-center min-h-0 overflow-y-auto ${
                       darkMode
@@ -390,22 +386,21 @@ export const PracticeQuizView: React.FC<PracticeQuizViewProps> = ({
                     }`}
                   >
                     <p
-                      className={`text-lg sm:text-xl font-bold font-bangla leading-snug ${
+                      className={`text-xl sm:text-2xl font-bold font-bangla leading-snug ${
                         darkMode ? 'text-emerald-300' : 'text-emerald-950'
                       }`}
                     >
                       {activeWord.banglaMeaning}
                     </p>
                     <p
-                      className={`mt-1.5 text-sm sm:text-base font-semibold leading-snug ${
-                        darkMode ? 'text-slate-200' : 'text-slate-700'
+                      className={`mt-1.5 text-base sm:text-lg font-semibold leading-snug ${
+                        darkMode ? 'text-slate-200' : 'text-slate-800'
                       }`}
                     >
                       {activeWord.englishMeaning}
                     </p>
                   </div>
 
-                  {/* Sentence Panel Stretches Proportionally */}
                   <div
                     className={`flex-[1.3] p-3.5 rounded-xl border flex flex-col justify-center min-h-0 overflow-y-auto ${
                       darkMode
@@ -413,10 +408,10 @@ export const PracticeQuizView: React.FC<PracticeQuizViewProps> = ({
                         : 'bg-slate-50/70 border-slate-200/80'
                     }`}
                   >
-                    <p className="text-sm sm:text-base leading-relaxed">{activeWord.sentenceEn}</p>
+                    <p className="text-base sm:text-lg leading-relaxed">{activeWord.sentenceEn}</p>
                     {activeWord.sentenceBn && (
                       <p
-                        className={`mt-2 text-xs sm:text-sm font-bangla leading-relaxed ${
+                        className={`mt-2 text-sm sm:text-base font-bangla leading-relaxed ${
                           darkMode ? 'text-slate-300' : 'text-slate-600'
                         }`}
                       >
@@ -429,22 +424,22 @@ export const PracticeQuizView: React.FC<PracticeQuizViewProps> = ({
                     <button
                       type="button"
                       onClick={() => handleGradeFlashcard(false)}
-                      className={`h-11 px-4 rounded-xl border text-sm font-bold flex items-center justify-center gap-1.5 transition-all active:scale-[0.99] ${
+                      className={`h-12 px-4 rounded-xl border text-base font-bold flex items-center justify-center gap-2 transition-all active:scale-[0.99] ${
                         darkMode
                           ? 'bg-amber-950/30 border-amber-800/60 text-amber-300'
                           : 'bg-amber-50 border-amber-200 text-amber-900'
                       }`}
                     >
-                      <X className="w-4 h-4" />
+                      <X className="w-5 h-5" />
                       <span>Again</span>
                     </button>
 
                     <button
                       type="button"
                       onClick={() => handleGradeFlashcard(true)}
-                      className="h-11 px-4 rounded-xl bg-emerald-600 text-white text-sm font-bold flex items-center justify-center gap-1.5 hover:bg-emerald-500 active:scale-[0.99] transition-all"
+                      className="h-12 px-4 rounded-xl bg-emerald-600 text-white text-base font-bold flex items-center justify-center gap-2 hover:bg-emerald-500 active:scale-[0.99] transition-all"
                     >
-                      <Check className="w-4 h-4" />
+                      <Check className="w-5 h-5" />
                       <span>Got It</span>
                     </button>
                   </div>
@@ -452,7 +447,6 @@ export const PracticeQuizView: React.FC<PracticeQuizViewProps> = ({
               )}
             </div>
           ) : quizMode === 'mcq' ? (
-            /* 4-Choice Meaning Quiz Stretches Vertically */
             <div className="flex-1 flex flex-col gap-2 min-h-0 overflow-hidden">
               <div className="flex-1 grid grid-rows-4 gap-2 min-h-0">
                 {mcqOptions.map((opt) => {
@@ -487,10 +481,12 @@ export const PracticeQuizView: React.FC<PracticeQuizViewProps> = ({
                       className={`w-full h-full min-h-0 px-3.5 py-2 rounded-xl border text-left flex items-center justify-between gap-2 transition-all overflow-hidden ${btnStyle}`}
                     >
                       <div className="min-w-0">
-                        <p className="text-sm sm:text-base font-bold font-bangla leading-snug line-clamp-1">
+                        <p className="text-base sm:text-lg font-bold font-bangla leading-snug line-clamp-1">
                           {opt.banglaMeaning}
                         </p>
-                        <p className="text-xs opacity-75 line-clamp-1 mt-0.5">{opt.englishMeaning}</p>
+                        <p className="text-xs sm:text-sm opacity-80 line-clamp-1 mt-0.5">
+                          {opt.englishMeaning}
+                        </p>
                       </div>
 
                       {showResult && isCorrect && (
@@ -508,17 +504,16 @@ export const PracticeQuizView: React.FC<PracticeQuizViewProps> = ({
                 <button
                   type="button"
                   onClick={handleNextQuestion}
-                  className="w-full h-11 px-5 rounded-xl bg-indigo-600 text-white text-sm font-bold flex items-center justify-center gap-1.5 hover:bg-indigo-500 shrink-0 transition-colors"
+                  className="w-full h-12 px-5 rounded-xl bg-indigo-600 text-white text-base font-bold flex items-center justify-center gap-2 hover:bg-indigo-500 shrink-0 transition-colors"
                 >
                   <span>Next</span>
-                  <ArrowRight className="w-4 h-4" />
+                  <ArrowRight className="w-5 h-5" />
                 </button>
               )}
             </div>
           ) : (
             /* Fill-in-the-Blank Sentence Quiz Mode */
             <div className="flex-1 flex flex-col gap-2.5 min-h-0 overflow-hidden">
-              {/* Sentence Prompt with Blank */}
               <div
                 className={`flex-[1.2] p-3.5 rounded-xl border flex flex-col justify-center min-h-0 overflow-y-auto ${
                   darkMode
@@ -526,7 +521,7 @@ export const PracticeQuizView: React.FC<PracticeQuizViewProps> = ({
                     : 'bg-slate-50 border-slate-200/80'
                 }`}
               >
-                <p className="text-sm sm:text-base leading-relaxed">
+                <p className="text-base sm:text-lg leading-relaxed">
                   {renderBlankedSentence(
                     activeWord.sentenceEn,
                     activeWord.word,
@@ -535,7 +530,7 @@ export const PracticeQuizView: React.FC<PracticeQuizViewProps> = ({
                 </p>
                 {activeWord.sentenceBn && (
                   <p
-                    className={`mt-2 text-xs sm:text-sm font-bangla leading-relaxed ${
+                    className={`mt-2 text-sm sm:text-base font-bangla leading-relaxed ${
                       darkMode ? 'text-emerald-300/90' : 'text-emerald-900'
                     }`}
                   >
@@ -544,7 +539,6 @@ export const PracticeQuizView: React.FC<PracticeQuizViewProps> = ({
                 )}
               </div>
 
-              {/* 2x2 Grid of Word Options */}
               <div className="flex-1 grid grid-cols-2 grid-rows-2 gap-2 min-h-0">
                 {mcqOptions.map((opt) => {
                   const isSelected = selectedOptionId === opt.id;
@@ -577,10 +571,10 @@ export const PracticeQuizView: React.FC<PracticeQuizViewProps> = ({
                       onClick={() => handleSelectOption(opt.id)}
                       className={`h-full min-h-0 px-3 py-2 rounded-xl border flex flex-col items-center justify-center text-center transition-all ${btnStyle}`}
                     >
-                      <span className="text-sm sm:text-base font-bold font-display break-words">
+                      <span className="text-base sm:text-lg font-extrabold font-display break-words">
                         {opt.word}
                       </span>
-                      <span className="text-[11px] font-mono-num opacity-60 mt-0.5">
+                      <span className="text-xs sm:text-sm font-mono-num opacity-65 mt-0.5">
                         {opt.partOfSpeech}
                       </span>
                     </button>
@@ -592,10 +586,10 @@ export const PracticeQuizView: React.FC<PracticeQuizViewProps> = ({
                 <button
                   type="button"
                   onClick={handleNextQuestion}
-                  className="w-full h-11 px-5 rounded-xl bg-indigo-600 text-white text-sm font-bold flex items-center justify-center gap-1.5 hover:bg-indigo-500 shrink-0 transition-colors"
+                  className="w-full h-12 px-5 rounded-xl bg-indigo-600 text-white text-base font-bold flex items-center justify-center gap-2 hover:bg-indigo-500 shrink-0 transition-colors"
                 >
                   <span>Next</span>
-                  <ArrowRight className="w-4 h-4" />
+                  <ArrowRight className="w-5 h-5" />
                 </button>
               )}
             </div>

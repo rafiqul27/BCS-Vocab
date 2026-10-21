@@ -44,7 +44,6 @@ export default function App() {
   const [activeTab, setActiveTab] = useState<ActiveTab>('home');
   const [selectedWord, setSelectedWord] = useState<VocabWord | null>(null);
 
-  // Navigate with browser history sync for Android hardware back button support
   const handleNavigate = useCallback((nextTab: ActiveTab) => {
     setSelectedWord(null);
     setActiveTab((prev) => {
@@ -74,9 +73,7 @@ export default function App() {
     }
   }, [wordById]);
 
-  // Listen to Android hardware back button / browser popstate
   useEffect(() => {
-    // Initialize root state
     if (!window.history.state) {
       window.history.replaceState({ tab: 'home', wordId: null }, '');
     }
@@ -121,31 +118,31 @@ export default function App() {
         darkMode ? 'bg-slate-950 text-slate-100' : 'bg-slate-50 text-slate-900'
       }`}
     >
-      {/* Ultra-Compact 44px Android Top Bar */}
+      {/* Top Bar with Larger Touch Buttons */}
       <header
-        className={`h-11 shrink-0 flex items-center justify-between gap-2 px-2.5 sm:px-4 border-b transition-colors ${
+        className={`h-12 shrink-0 flex items-center justify-between gap-2 px-2.5 sm:px-4 border-b transition-colors ${
           darkMode
             ? 'bg-slate-950 border-slate-800/90'
             : 'bg-white border-slate-200/80'
         }`}
       >
-        <div className="flex items-center gap-1.5 min-w-0">
+        <div className="flex items-center gap-2 min-w-0">
           {activeTab !== 'home' ? (
             <button
               type="button"
               onClick={() => handleNavigate('home')}
               aria-label="Back to Home"
-              className={`h-8 px-2.5 rounded-lg border text-xs font-bold flex items-center gap-1.5 transition-colors ${
+              className={`h-9 px-3 rounded-xl border text-sm font-bold flex items-center gap-1.5 transition-colors ${
                 darkMode
                   ? 'bg-slate-900 border-slate-800 text-slate-100 hover:bg-slate-800'
                   : 'bg-slate-100 border-slate-200 text-slate-900 hover:bg-slate-200'
               }`}
             >
-              <ArrowLeft className="w-3.5 h-3.5" />
+              <ArrowLeft className="w-4 h-4 shrink-0" />
               <span className="font-display truncate">{tabTitles[activeTab]}</span>
             </button>
           ) : (
-            <span className="text-sm sm:text-base font-extrabold tracking-tight font-display pl-1">
+            <span className="text-base sm:text-lg font-extrabold tracking-tight font-display pl-1">
               BCS Vocab
             </span>
           )}
@@ -153,25 +150,25 @@ export default function App() {
           {!isOnline && (
             <span
               title="Offline Mode Active"
-              className="h-6 px-1.5 rounded-md bg-amber-500/15 text-amber-500 text-[10px] font-semibold flex items-center gap-1"
+              className="h-7 px-2 rounded-lg bg-amber-500/15 text-amber-500 text-xs font-semibold flex items-center gap-1"
             >
-              <WifiOff className="w-3 h-3" />
+              <WifiOff className="w-3.5 h-3.5" />
               <span>Offline</span>
             </span>
           )}
         </div>
 
-        {/* Right: Small Icon Controls (Install PWA, Accent, Auto-Speak, Theme) */}
-        <div className="flex items-center gap-1 shrink-0">
+        {/* Right: Larger Icon Controls */}
+        <div className="flex items-center gap-1.5 shrink-0">
           {!isInstalled && (isInstallable || isIOS) && (
             <button
               type="button"
               onClick={() => (isInstallable ? install() : setShowIOSGuide(true))}
               title="Install App on Home Screen"
               aria-label="Install App"
-              className="h-8 px-2 rounded-lg bg-indigo-600 text-white text-[11px] font-bold flex items-center gap-1 hover:bg-indigo-500 transition-colors"
+              className="h-9 px-2.5 rounded-xl bg-indigo-600 text-white text-xs font-bold flex items-center gap-1 hover:bg-indigo-500 transition-colors"
             >
-              <Download className="w-3.5 h-3.5" />
+              <Download className="w-4 h-4" />
               <span className="hidden xs:inline">Install</span>
             </button>
           )}
@@ -184,13 +181,13 @@ export default function App() {
               pronunciation.speak('Voice', { accent: next, rate: 0.92 });
             }}
             title={`Pronunciation Accent: ${accent === 'en-GB' ? 'UK' : 'US'}`}
-            className={`h-8 px-2 rounded-lg border text-[11px] font-mono-num font-bold flex items-center gap-1 transition-colors ${
+            className={`h-9 px-2.5 rounded-xl border text-xs font-mono-num font-bold flex items-center gap-1 transition-colors ${
               darkMode
-                ? 'bg-slate-900 border-slate-800 text-slate-300 hover:bg-slate-800'
-                : 'bg-slate-100 border-slate-200 text-slate-700 hover:bg-slate-200'
+                ? 'bg-slate-900 border-slate-800 text-slate-200 hover:bg-slate-800'
+                : 'bg-slate-100 border-slate-200 text-slate-800 hover:bg-slate-200'
             }`}
           >
-            <Globe className="w-3.5 h-3.5 text-indigo-500" />
+            <Globe className="w-4 h-4 text-indigo-500" />
             <span>{accent === 'en-GB' ? 'UK' : 'US'}</span>
           </button>
 
@@ -199,15 +196,15 @@ export default function App() {
             onClick={() => setAutoPlayAudio(!autoPlayAudio)}
             title={`Auto-pronounce: ${autoPlayAudio ? 'On' : 'Off'}`}
             aria-label="Toggle auto pronunciation"
-            className={`h-8 w-8 rounded-lg border flex items-center justify-center transition-colors ${
+            className={`h-9 w-9 rounded-xl border flex items-center justify-center transition-colors ${
               autoPlayAudio
                 ? 'bg-indigo-600 text-white border-indigo-600'
                 : darkMode
-                ? 'bg-slate-900 border-slate-800 text-slate-400 hover:bg-slate-800'
-                : 'bg-slate-100 border-slate-200 text-slate-600 hover:bg-slate-200'
+                ? 'bg-slate-900 border-slate-800 text-slate-300 hover:bg-slate-800'
+                : 'bg-slate-100 border-slate-200 text-slate-700 hover:bg-slate-200'
             }`}
           >
-            {autoPlayAudio ? <Volume2 className="w-3.5 h-3.5" /> : <VolumeX className="w-3.5 h-3.5" />}
+            {autoPlayAudio ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}
           </button>
 
           <button
@@ -215,19 +212,19 @@ export default function App() {
             onClick={() => setDarkMode(!darkMode)}
             title={darkMode ? 'Light mode' : 'Dark mode'}
             aria-label="Toggle dark mode"
-            className={`h-8 w-8 rounded-lg border flex items-center justify-center transition-colors ${
+            className={`h-9 w-9 rounded-xl border flex items-center justify-center transition-colors ${
               darkMode
                 ? 'bg-slate-900 border-slate-800 text-amber-400 hover:bg-slate-800'
                 : 'bg-slate-100 border-slate-200 text-slate-700 hover:bg-slate-200'
             }`}
           >
-            {darkMode ? <Sun className="w-3.5 h-3.5" /> : <Moon className="w-3.5 h-3.5" />}
+            {darkMode ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
           </button>
         </div>
       </header>
 
-      {/* Full-Viewport Main Area */}
-      <main className="flex-1 w-full max-w-2xl mx-auto px-2.5 sm:px-4 py-2 flex flex-col min-h-0 overflow-hidden">
+      {/* Full-Viewport Main Area (Preserves 100dvh Fit) */}
+      <main className="flex-1 w-full max-w-2xl mx-auto px-2 sm:px-4 py-1.5 flex flex-col min-h-0 overflow-hidden">
         {activeTab === 'home' && (
           <HomeTilesView
             counts={counts}
@@ -296,15 +293,15 @@ export default function App() {
             }`}
             onClick={(e) => e.stopPropagation()}
           >
-            <h3 className="text-base font-bold font-display">Install on Home Screen</h3>
-            <p className="mt-2 text-xs leading-relaxed opacity-80">
+            <h3 className="text-lg font-bold font-display">Install on Home Screen</h3>
+            <p className="mt-2 text-sm leading-relaxed opacity-80">
               1. Tap the <strong>Share</strong> button in your browser toolbar.<br />
               2. Select <strong>Add to Home Screen</strong>.
             </p>
             <button
               type="button"
               onClick={() => setShowIOSGuide(false)}
-              className="mt-4 w-full h-9 rounded-xl bg-indigo-600 text-white text-xs font-bold"
+              className="mt-4 w-full h-11 rounded-xl bg-indigo-600 text-white text-sm font-bold"
             >
               Got It
             </button>

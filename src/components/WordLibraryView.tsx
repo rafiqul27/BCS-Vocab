@@ -90,16 +90,16 @@ export const WordLibraryView: React.FC<WordLibraryViewProps> = ({
 
   return (
     <div className="flex-1 flex flex-col gap-2 min-h-0 overflow-hidden">
-      {/* Compact Search & Filter Header */}
+      {/* Search & Filter Header with Larger Controls */}
       <div
-        className={`rounded-2xl p-2.5 border space-y-1.5 shrink-0 ${
+        className={`rounded-2xl p-2.5 border space-y-2 shrink-0 ${
           darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200/90'
         }`}
       >
-        <div className="flex items-center gap-1.5">
+        <div className="flex items-center gap-2">
           <div className="relative flex-1 min-w-0">
             <Search
-              className={`w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none ${
+              className={`w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none ${
                 darkMode ? 'text-slate-500' : 'text-slate-400'
               }`}
             />
@@ -111,7 +111,7 @@ export const WordLibraryView: React.FC<WordLibraryViewProps> = ({
                 setPageIndex(0);
               }}
               placeholder="Search word, বাংলা, #..."
-              className={`w-full h-9 pl-8 pr-7 rounded-xl border text-xs sm:text-sm outline-none transition-colors ${
+              className={`w-full h-10 pl-9 pr-8 rounded-xl border text-sm sm:text-base outline-none transition-colors ${
                 darkMode
                   ? 'bg-slate-950 border-slate-800 text-slate-100 placeholder:text-slate-500 focus:border-indigo-500'
                   : 'bg-slate-50 border-slate-200 text-slate-900 placeholder:text-slate-400 focus:border-indigo-600 focus:bg-white'
@@ -125,9 +125,9 @@ export const WordLibraryView: React.FC<WordLibraryViewProps> = ({
                   setPageIndex(0);
                 }}
                 aria-label="Clear search"
-                className="h-8 w-8 absolute right-0.5 top-1/2 -translate-y-1/2 flex items-center justify-center opacity-60 hover:opacity-100"
+                className="h-9 w-9 absolute right-0.5 top-1/2 -translate-y-1/2 flex items-center justify-center opacity-60 hover:opacity-100"
               >
-                <X className="w-3.5 h-3.5" />
+                <X className="w-4 h-4" />
               </button>
             )}
           </div>
@@ -139,20 +139,20 @@ export const WordLibraryView: React.FC<WordLibraryViewProps> = ({
               setPageIndex(0);
             }}
             title="Toggle sort order"
-            className={`h-9 px-2.5 rounded-xl border text-xs font-mono-num font-bold flex items-center gap-1 shrink-0 transition-colors ${
+            className={`h-10 px-3 rounded-xl border text-sm font-mono-num font-bold flex items-center gap-1.5 shrink-0 transition-colors ${
               darkMode
-                ? 'border-slate-800 text-slate-300 hover:bg-slate-800'
-                : 'border-slate-200 text-slate-700 hover:bg-slate-50'
+                ? 'border-slate-800 text-slate-200 hover:bg-slate-800'
+                : 'border-slate-200 text-slate-800 hover:bg-slate-50'
             }`}
           >
-            <ArrowUpDown className="w-3.5 h-3.5" />
+            <ArrowUpDown className="w-4 h-4" />
             <span>{sortOrder === 'id' ? '#' : 'A–Z'}</span>
           </button>
         </div>
 
-        {/* 3-Column Filter Strip (Fits 360px Screen With Zero Horizontal Scroll) */}
+        {/* 3-Column Filter Strip with Larger Text & Buttons */}
         <div
-          className={`grid grid-cols-3 gap-1 p-0.5 rounded-xl border ${
+          className={`grid grid-cols-3 gap-1 p-1 rounded-xl border ${
             darkMode ? 'bg-slate-950 border-slate-800' : 'bg-slate-100 border-slate-200/60'
           }`}
         >
@@ -170,7 +170,7 @@ export const WordLibraryView: React.FC<WordLibraryViewProps> = ({
                 setStatusFilter(tab.id);
                 setPageIndex(0);
               }}
-              className={`h-7 px-1.5 rounded-lg text-[11px] font-semibold truncate transition-colors ${
+              className={`h-9 px-2 rounded-lg text-xs sm:text-sm font-bold truncate transition-colors ${
                 statusFilter === tab.id
                   ? darkMode
                     ? 'bg-slate-800 text-white shadow-2xs'
@@ -197,7 +197,7 @@ export const WordLibraryView: React.FC<WordLibraryViewProps> = ({
       >
         {pageWords.length === 0 ? (
           <div className="p-8 text-center">
-            <p className="text-xs font-semibold opacity-70">No matching words</p>
+            <p className="text-sm font-semibold opacity-70">No matching words</p>
           </div>
         ) : (
           pageWords.map((w) => {
@@ -216,7 +216,7 @@ export const WordLibraryView: React.FC<WordLibraryViewProps> = ({
                     onSelectWord(w);
                   }
                 }}
-                className={`w-full px-3 py-2.5 flex items-center justify-between gap-2.5 cursor-pointer transition-colors text-left ${
+                className={`w-full px-3.5 py-3 flex items-center justify-between gap-3 cursor-pointer transition-colors text-left ${
                   darkMode ? 'hover:bg-slate-800/50' : 'hover:bg-slate-50/90'
                 }`}
               >
@@ -224,30 +224,30 @@ export const WordLibraryView: React.FC<WordLibraryViewProps> = ({
                   type="button"
                   onClick={(e) => handleQuickSpeak(e, w)}
                   aria-label={`Pronounce ${w.word}`}
-                  className={`h-9 w-9 rounded-xl flex items-center justify-center shrink-0 transition-colors ${
+                  className={`h-11 w-11 rounded-xl flex items-center justify-center shrink-0 transition-colors ${
                     isSpeaking
                       ? 'bg-indigo-600 text-white'
                       : darkMode
-                      ? 'bg-slate-800 text-slate-300 hover:bg-slate-700'
+                      ? 'bg-slate-800 text-slate-200 hover:bg-slate-700'
                       : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
                   }`}
                 >
-                  <Volume2 className="w-4 h-4" />
+                  <Volume2 className="w-5 h-5" />
                 </button>
 
                 <div className="min-w-0 flex-1">
-                  <div className="flex items-center gap-1.5 min-w-0">
-                    <span className="text-sm sm:text-base font-bold font-display truncate">
+                  <div className="flex items-center gap-2 min-w-0">
+                    <span className="text-base sm:text-lg font-extrabold font-display truncate">
                       {w.word}
                     </span>
-                    <span className="text-[11px] font-mono-num opacity-55 shrink-0">
+                    <span className="text-xs sm:text-sm font-mono-num opacity-60 shrink-0">
                       #{String(w.id).padStart(3, '0')} · {w.partOfSpeech}
                     </span>
                   </div>
 
                   <p
-                    className={`text-xs sm:text-sm font-bangla truncate mt-0.5 ${
-                      darkMode ? 'text-emerald-300/90' : 'text-emerald-900'
+                    className={`text-sm sm:text-base font-bangla font-medium truncate mt-0.5 ${
+                      darkMode ? 'text-emerald-300' : 'text-emerald-900'
                     }`}
                   >
                     {w.banglaMeaning}
@@ -257,11 +257,11 @@ export const WordLibraryView: React.FC<WordLibraryViewProps> = ({
                 <div className="shrink-0 flex items-center">
                   {isLearned ? (
                     <CheckCircle2
-                      className="w-4 h-4 text-emerald-600 dark:text-emerald-400"
+                      className="w-5 h-5 text-emerald-600 dark:text-emerald-400"
                       aria-label="Learned"
                     />
                   ) : (
-                    <Circle className="w-4 h-4 opacity-30" aria-label="Unlearned" />
+                    <Circle className="w-5 h-5 opacity-30" aria-label="Unlearned" />
                   )}
                 </div>
               </div>
@@ -270,10 +270,10 @@ export const WordLibraryView: React.FC<WordLibraryViewProps> = ({
         )}
       </div>
 
-      {/* Compact Pagination Bar */}
+      {/* Larger Pagination Bar */}
       {filteredWords.length > PAGE_SIZE && (
         <div
-          className={`rounded-2xl px-2.5 py-1.5 border flex items-center justify-between gap-2 shrink-0 ${
+          className={`rounded-2xl px-3 py-2 border flex items-center justify-between gap-2 shrink-0 ${
             darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'
           }`}
         >
@@ -281,17 +281,17 @@ export const WordLibraryView: React.FC<WordLibraryViewProps> = ({
             type="button"
             onClick={() => goToPage(Math.max(0, safePageIndex - 1))}
             disabled={safePageIndex === 0}
-            className={`h-8 px-3 rounded-xl border text-xs font-semibold flex items-center gap-1 disabled:opacity-30 transition-colors ${
+            className={`h-10 px-4 rounded-xl border text-sm font-bold flex items-center gap-1.5 disabled:opacity-30 transition-colors ${
               darkMode
-                ? 'border-slate-700 text-slate-200 hover:bg-slate-800'
-                : 'border-slate-200 text-slate-700 hover:bg-slate-50'
+                ? 'border-slate-700 text-slate-100 hover:bg-slate-800'
+                : 'border-slate-200 text-slate-800 hover:bg-slate-50'
             }`}
           >
-            <ChevronLeft className="w-3.5 h-3.5" />
+            <ChevronLeft className="w-4 h-4" />
             <span>Prev 50</span>
           </button>
 
-          <span className="text-xs font-mono-num font-semibold">
+          <span className="text-sm font-mono-num font-bold">
             {startItemNum}–{endItemNum} / {filteredWords.length}
           </span>
 
@@ -299,10 +299,10 @@ export const WordLibraryView: React.FC<WordLibraryViewProps> = ({
             type="button"
             onClick={() => goToPage(Math.min(totalPages - 1, safePageIndex + 1))}
             disabled={safePageIndex >= totalPages - 1}
-            className="h-8 px-3 rounded-xl bg-indigo-600 text-white text-xs font-semibold flex items-center gap-1 disabled:opacity-30 hover:bg-indigo-500 transition-colors"
+            className="h-10 px-4 rounded-xl bg-indigo-600 text-white text-sm font-bold flex items-center gap-1.5 disabled:opacity-30 hover:bg-indigo-500 transition-colors"
           >
             <span>Next 50</span>
-            <ChevronRight className="w-3.5 h-3.5" />
+            <ChevronRight className="w-4 h-4" />
           </button>
         </div>
       )}

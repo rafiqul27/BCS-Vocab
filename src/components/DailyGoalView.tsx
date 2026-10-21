@@ -98,8 +98,8 @@ export const DailyGoalView: React.FC<DailyGoalViewProps> = ({
       regex.test(part) ? (
         <span
           key={idx}
-          className={`font-semibold underline decoration-2 underline-offset-4 ${
-            darkMode ? 'text-indigo-300 decoration-indigo-400/70' : 'text-indigo-700 decoration-indigo-500/60'
+          className={`font-bold underline decoration-2 underline-offset-4 ${
+            darkMode ? 'text-indigo-300 decoration-indigo-400/80' : 'text-indigo-700 decoration-indigo-500/70'
           }`}
         >
           {part}
@@ -117,14 +117,14 @@ export const DailyGoalView: React.FC<DailyGoalViewProps> = ({
           darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'
         }`}
       >
-        <div className="w-12 h-12 rounded-2xl bg-emerald-500/15 text-emerald-500 flex items-center justify-center mb-3">
-          <Award className="w-6 h-6" />
+        <div className="w-14 h-14 rounded-2xl bg-emerald-500/15 text-emerald-500 flex items-center justify-center mb-3">
+          <Award className="w-7 h-7" />
         </div>
-        <h2 className="text-lg font-bold font-display">All 485 Clusters Completed!</h2>
+        <h2 className="text-xl font-bold font-display">All 485 Clusters Completed!</h2>
         <button
           type="button"
           onClick={onStartQuizAfterSet}
-          className="mt-4 min-h-[44px] px-5 py-2.5 rounded-xl bg-indigo-600 text-white text-xs font-semibold hover:bg-indigo-500 transition-colors"
+          className="mt-4 h-12 px-6 rounded-xl bg-indigo-600 text-white text-base font-bold hover:bg-indigo-500 transition-colors"
         >
           Practice Quiz
         </button>
@@ -142,22 +142,22 @@ export const DailyGoalView: React.FC<DailyGoalViewProps> = ({
             darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200 shadow-2xs'
           }`}
         >
-          {/* Top Row: Cluster Info + Navigation + Word + Audio */}
+          {/* Top Header Inside Card: Larger Text & Buttons */}
           <div className="pb-2 border-b border-slate-200/70 dark:border-slate-800 shrink-0 space-y-1.5">
             <div className="flex items-center justify-between gap-2">
-              <div className="flex items-center gap-1.5 text-xs font-mono-num">
-                <span className="font-bold text-indigo-600 dark:text-indigo-400">
+              <div className="flex items-center gap-1.5 text-sm font-mono-num">
+                <span className="font-extrabold text-indigo-600 dark:text-indigo-400">
                   C#{String(currentCluster.clusterId).padStart(3, '0')}
                 </span>
                 <span aria-hidden="true" className="opacity-40">·</span>
-                <span className="font-semibold">
+                <span className="font-bold">
                   {cardIndex + 1}/{currentSetWords.length}
                 </span>
                 <span aria-hidden="true" className="opacity-40">·</span>
-                <span className="opacity-65">#{String(activeWord.id).padStart(3, '0')}</span>
+                <span className="opacity-70">#{String(activeWord.id).padStart(3, '0')}</span>
               </div>
 
-              <div className="flex items-center gap-1">
+              <div className="flex items-center gap-1.5">
                 <button
                   type="button"
                   onClick={() => {
@@ -166,13 +166,13 @@ export const DailyGoalView: React.FC<DailyGoalViewProps> = ({
                   }}
                   disabled={safeClusterOffset === 0}
                   title="Previous cluster"
-                  className={`h-7 w-7 rounded-lg border flex items-center justify-center disabled:opacity-25 transition-colors ${
+                  className={`h-9 w-9 rounded-xl border flex items-center justify-center disabled:opacity-25 transition-colors ${
                     darkMode
-                      ? 'border-slate-800 text-slate-300 hover:bg-slate-800'
-                      : 'border-slate-200 text-slate-600 hover:bg-slate-50'
+                      ? 'border-slate-800 text-slate-200 hover:bg-slate-800'
+                      : 'border-slate-200 text-slate-700 hover:bg-slate-50'
                   }`}
                 >
-                  <ChevronLeft className="w-3.5 h-3.5" />
+                  <ChevronLeft className="w-4 h-4" />
                 </button>
                 <button
                   type="button"
@@ -182,61 +182,61 @@ export const DailyGoalView: React.FC<DailyGoalViewProps> = ({
                   }}
                   disabled={safeClusterOffset >= unlearnedClusters.length - 1}
                   title="Next cluster"
-                  className={`h-7 w-7 rounded-lg border flex items-center justify-center disabled:opacity-25 transition-colors ${
+                  className={`h-9 w-9 rounded-xl border flex items-center justify-center disabled:opacity-25 transition-colors ${
                     darkMode
-                      ? 'border-slate-800 text-slate-300 hover:bg-slate-800'
-                      : 'border-slate-200 text-slate-600 hover:bg-slate-50'
+                      ? 'border-slate-800 text-slate-200 hover:bg-slate-800'
+                      : 'border-slate-200 text-slate-700 hover:bg-slate-50'
                   }`}
                 >
-                  <ChevronRight className="w-3.5 h-3.5" />
+                  <ChevronRight className="w-4 h-4" />
                 </button>
 
                 <button
                   type="button"
                   onClick={() => setShowOverview(true)}
                   title="Cluster Set Overview"
-                  className={`h-7 px-2 rounded-lg border text-xs font-mono-num font-bold flex items-center gap-1 transition-colors ${
+                  className={`h-9 px-3 rounded-xl border text-sm font-mono-num font-bold flex items-center gap-1.5 transition-colors ${
                     darkMode
-                      ? 'bg-slate-800 border-slate-700 text-slate-200 hover:bg-slate-700'
-                      : 'bg-slate-100 border-slate-200 text-slate-800 hover:bg-slate-200'
+                      ? 'bg-slate-800 border-slate-700 text-slate-100 hover:bg-slate-700'
+                      : 'bg-slate-100 border-slate-200 text-slate-900 hover:bg-slate-200'
                   }`}
                 >
-                  <Layers className="w-3.5 h-3.5 text-indigo-500" />
+                  <Layers className="w-4 h-4 text-indigo-500" />
                   <span>{currentSetWords.length}</span>
                 </button>
               </div>
             </div>
 
             <div className="flex items-center justify-between gap-2">
-              <div className="flex items-baseline gap-2 min-w-0 flex-wrap">
-                <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight font-display break-words">
+              <div className="flex items-baseline gap-2.5 min-w-0 flex-wrap">
+                <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight font-display break-words">
                   {activeWord.word}
                 </h1>
-                <span className="text-xs font-mono-num font-semibold text-indigo-600 dark:text-indigo-400">
+                <span className="text-sm font-mono-num font-bold text-indigo-600 dark:text-indigo-400">
                   {activeWord.partOfSpeech}
                 </span>
               </div>
 
-              <div className="flex items-center gap-1.5 shrink-0">
+              <div className="flex items-center gap-2 shrink-0">
                 <button
                   type="button"
                   onClick={() => handleSpeak(activeWord.word, 0.68, 'slow')}
                   aria-label="Slow pronunciation"
-                  className={`h-9 w-9 rounded-xl flex items-center justify-center transition-colors ${
+                  className={`h-11 w-11 rounded-xl flex items-center justify-center transition-colors ${
                     speakingType === 'slow'
                       ? 'bg-indigo-600 text-white'
                       : darkMode
-                      ? 'bg-slate-800 text-slate-300 hover:bg-slate-700'
+                      ? 'bg-slate-800 text-slate-200 hover:bg-slate-700'
                       : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
                   }`}
                 >
-                  <Turtle className="w-4 h-4" />
+                  <Turtle className="w-5 h-5" />
                 </button>
                 <button
                   type="button"
                   onClick={() => handleSpeak(activeWord.word, 0.92, 'word')}
                   aria-label="Pronounce word"
-                  className={`h-9 w-9 rounded-xl flex items-center justify-center transition-colors ${
+                  className={`h-11 w-11 rounded-xl flex items-center justify-center transition-colors ${
                     speakingType === 'word'
                       ? 'bg-indigo-600 text-white'
                       : darkMode
@@ -244,15 +244,15 @@ export const DailyGoalView: React.FC<DailyGoalViewProps> = ({
                       : 'bg-indigo-50 text-indigo-700 hover:bg-indigo-100'
                   }`}
                 >
-                  <Volume2 className="w-4 h-4" />
+                  <Volume2 className="w-5 h-5" />
                 </button>
               </div>
             </div>
           </div>
 
-          {/* Vertically Stretched Content Panels (Zero Dead Space Top/Bottom) */}
+          {/* Vertically Stretched Content Panels with Larger Font Sizes */}
           <div className="flex-1 flex flex-col gap-2 min-h-0 overflow-hidden">
-            {/* Meaning Box Stretches Proportionally */}
+            {/* Meaning Box */}
             <div
               className={`flex-1 p-3.5 rounded-xl border flex flex-col justify-center min-h-0 overflow-y-auto ${
                 darkMode
@@ -261,22 +261,22 @@ export const DailyGoalView: React.FC<DailyGoalViewProps> = ({
               }`}
             >
               <p
-                className={`text-lg sm:text-xl font-bold font-bangla leading-snug ${
+                className={`text-xl sm:text-2xl font-bold font-bangla leading-snug ${
                   darkMode ? 'text-emerald-300' : 'text-emerald-950'
                 }`}
               >
                 {activeWord.banglaMeaning}
               </p>
               <p
-                className={`mt-1.5 text-sm sm:text-base font-semibold leading-snug ${
-                  darkMode ? 'text-slate-200' : 'text-slate-700'
+                className={`mt-1.5 text-base sm:text-lg font-semibold leading-snug ${
+                  darkMode ? 'text-slate-200' : 'text-slate-800'
                 }`}
               >
                 {activeWord.englishMeaning}
               </p>
             </div>
 
-            {/* BCS Sentence Box Stretches Proportionally */}
+            {/* BCS Sentence Box */}
             <div
               className={`flex-[1.35] p-3.5 rounded-xl border flex flex-col justify-center min-h-0 overflow-y-auto ${
                 darkMode
@@ -284,9 +284,9 @@ export const DailyGoalView: React.FC<DailyGoalViewProps> = ({
                   : 'bg-slate-50/70 border-slate-200/80'
               }`}
             >
-              <div className="flex items-start justify-between gap-2">
+              <div className="flex items-start justify-between gap-2.5">
                 <p
-                  className={`text-sm sm:text-base leading-relaxed flex-1 ${
+                  className={`text-base sm:text-lg leading-relaxed flex-1 ${
                     darkMode ? 'text-slate-100' : 'text-slate-900'
                   }`}
                 >
@@ -296,21 +296,21 @@ export const DailyGoalView: React.FC<DailyGoalViewProps> = ({
                   type="button"
                   onClick={() => handleSpeak(activeWord.sentenceEn, 0.9, 'sentence')}
                   aria-label="Listen sentence"
-                  className={`h-8 w-8 rounded-lg flex items-center justify-center shrink-0 transition-colors ${
+                  className={`h-10 w-10 rounded-xl flex items-center justify-center shrink-0 transition-colors ${
                     speakingType === 'sentence'
                       ? 'bg-indigo-600 text-white'
                       : darkMode
-                      ? 'bg-slate-800 text-slate-300 hover:bg-slate-700'
+                      ? 'bg-slate-800 text-slate-200 hover:bg-slate-700'
                       : 'bg-white border border-slate-200 text-slate-700 hover:bg-slate-100'
                   }`}
                 >
-                  <Volume2 className="w-4 h-4" />
+                  <Volume2 className="w-5 h-5" />
                 </button>
               </div>
 
               {activeWord.sentenceBn && (
                 <p
-                  className={`mt-2 text-xs sm:text-sm font-bangla leading-relaxed ${
+                  className={`mt-2 text-sm sm:text-base font-bangla leading-relaxed ${
                     darkMode ? 'text-slate-300' : 'text-slate-600'
                   }`}
                 >
@@ -327,12 +327,12 @@ export const DailyGoalView: React.FC<DailyGoalViewProps> = ({
                     key={cw.id}
                     type="button"
                     onClick={() => setCardIndex(idx)}
-                    className={`px-2.5 py-1 rounded-lg text-xs font-semibold border whitespace-nowrap shrink-0 transition-colors ${
+                    className={`px-3.5 py-1.5 rounded-xl text-sm font-bold border whitespace-nowrap shrink-0 transition-colors ${
                       idx === cardIndex
                         ? 'bg-indigo-600 text-white border-indigo-600'
                         : darkMode
-                        ? 'bg-slate-800/60 border-slate-700 text-slate-300'
-                        : 'bg-slate-50 border-slate-200 text-slate-700'
+                        ? 'bg-slate-800/60 border-slate-700 text-slate-200'
+                        : 'bg-slate-50 border-slate-200 text-slate-800'
                     }`}
                   >
                     {cw.word}
@@ -342,27 +342,27 @@ export const DailyGoalView: React.FC<DailyGoalViewProps> = ({
             )}
           </div>
 
-          {/* Bottom Navigation */}
+          {/* Larger Bottom Navigation Buttons */}
           <div className="pt-2 border-t border-slate-200/70 dark:border-slate-800 flex items-center justify-between gap-2.5 shrink-0">
             <button
               type="button"
               onClick={() => setCardIndex((p) => Math.max(0, p - 1))}
               disabled={cardIndex === 0}
               aria-label="Previous word"
-              className={`h-11 w-14 rounded-xl border flex items-center justify-center disabled:opacity-30 transition-colors ${
+              className={`h-12 w-16 rounded-xl border flex items-center justify-center disabled:opacity-30 transition-colors ${
                 darkMode
-                  ? 'border-slate-700 text-slate-200 hover:bg-slate-800'
-                  : 'border-slate-200 text-slate-700 hover:bg-slate-50'
+                  ? 'border-slate-700 text-slate-100 hover:bg-slate-800'
+                  : 'border-slate-200 text-slate-800 hover:bg-slate-50'
               }`}
             >
-              <ChevronLeft className="w-5 h-5" />
+              <ChevronLeft className="w-6 h-6" />
             </button>
 
             {cardIndex < currentSetWords.length - 1 ? (
               <button
                 type="button"
                 onClick={() => setCardIndex((p) => p + 1)}
-                className="flex-1 h-11 px-4 rounded-xl bg-indigo-600 text-white text-sm font-bold flex items-center justify-center gap-1.5 hover:bg-indigo-500 active:scale-[0.99] transition-all"
+                className="flex-1 h-12 px-5 rounded-xl bg-indigo-600 text-white text-base font-bold flex items-center justify-center gap-2 hover:bg-indigo-500 active:scale-[0.99] transition-all"
               >
                 <span>
                   {cardIndex + 2} / {currentSetWords.length}
@@ -375,7 +375,7 @@ export const DailyGoalView: React.FC<DailyGoalViewProps> = ({
                 onClick={() =>
                   currentSetWords.length === 1 ? handleConfirmCluster() : setShowOverview(true)
                 }
-                className="flex-1 h-11 px-4 rounded-xl bg-emerald-600 text-white text-sm font-bold flex items-center justify-center gap-1.5 hover:bg-emerald-500 active:scale-[0.99] transition-all"
+                className="flex-1 h-12 px-5 rounded-xl bg-emerald-600 text-white text-base font-bold flex items-center justify-center gap-2 hover:bg-emerald-500 active:scale-[0.99] transition-all"
               >
                 <Check className="w-5 h-5" />
                 <span>{currentSetWords.length === 1 ? 'Confirm' : 'Review Set'}</span>
@@ -386,16 +386,16 @@ export const DailyGoalView: React.FC<DailyGoalViewProps> = ({
       ) : (
         /* Cluster Set Overview & Confirm View */
         <div
-          className={`flex-1 rounded-2xl p-3 sm:p-4 border flex flex-col justify-between min-h-0 overflow-hidden ${
+          className={`flex-1 rounded-2xl p-3.5 sm:p-4 border flex flex-col justify-between min-h-0 overflow-hidden ${
             darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200 shadow-2xs'
           }`}
         >
-          <div className="flex items-center justify-between gap-2 pb-2 border-b border-slate-200/70 dark:border-slate-800 shrink-0">
+          <div className="flex items-center justify-between gap-2 pb-2.5 border-b border-slate-200/70 dark:border-slate-800 shrink-0">
             <div className="min-w-0">
-              <span className="text-xs font-mono-num text-emerald-600 dark:text-emerald-400 font-bold">
+              <span className="text-sm font-mono-num text-emerald-600 dark:text-emerald-400 font-bold">
                 CLUSTER #{String(currentCluster.clusterId).padStart(3, '0')} ({currentSetWords.length}w)
               </span>
-              <p className="text-xs sm:text-sm font-bangla font-bold truncate mt-0.5">
+              <p className="text-base font-bangla font-bold truncate mt-0.5">
                 {currentCluster.banglaMeaning}
               </p>
             </div>
@@ -404,13 +404,13 @@ export const DailyGoalView: React.FC<DailyGoalViewProps> = ({
               type="button"
               onClick={() => setShowOverview(false)}
               aria-label="Close overview"
-              className={`h-8 w-8 rounded-xl border flex items-center justify-center shrink-0 transition-colors ${
+              className={`h-10 w-10 rounded-xl border flex items-center justify-center shrink-0 transition-colors ${
                 darkMode
-                  ? 'border-slate-700 text-slate-300 hover:bg-slate-800'
+                  ? 'border-slate-700 text-slate-200 hover:bg-slate-800'
                   : 'border-slate-200 text-slate-700 hover:bg-slate-50'
               }`}
             >
-              <X className="w-4 h-4" />
+              <X className="w-5 h-5" />
             </button>
           </div>
 
@@ -431,17 +431,17 @@ export const DailyGoalView: React.FC<DailyGoalViewProps> = ({
                     setShowOverview(false);
                   }
                 }}
-                className="py-2.5 flex items-center justify-between gap-2.5 cursor-pointer"
+                className="py-3 flex items-center justify-between gap-3 cursor-pointer"
               >
                 <div className="min-w-0">
-                  <div className="flex items-center gap-1.5">
-                    <span className="text-xs font-mono-num opacity-55">
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-mono-num opacity-60">
                       #{String(w.id).padStart(3, '0')}
                     </span>
-                    <span className="text-sm sm:text-base font-bold font-display">{w.word}</span>
-                    <span className="text-xs opacity-60">({w.partOfSpeech})</span>
+                    <span className="text-lg font-bold font-display">{w.word}</span>
+                    <span className="text-sm opacity-65">({w.partOfSpeech})</span>
                   </div>
-                  <p className="text-xs opacity-75 line-clamp-1 mt-0.5">{w.sentenceEn}</p>
+                  <p className="text-sm opacity-80 line-clamp-1 mt-0.5">{w.sentenceEn}</p>
                 </div>
 
                 <button
@@ -451,13 +451,13 @@ export const DailyGoalView: React.FC<DailyGoalViewProps> = ({
                     handleSpeak(w.word, 0.92, 'word');
                   }}
                   aria-label={`Pronounce ${w.word}`}
-                  className={`h-9 w-9 rounded-xl flex items-center justify-center shrink-0 transition-colors ${
+                  className={`h-11 w-11 rounded-xl flex items-center justify-center shrink-0 transition-colors ${
                     darkMode
                       ? 'bg-slate-800 text-slate-200 hover:bg-slate-700'
                       : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
                   }`}
                 >
-                  <Volume2 className="w-4 h-4" />
+                  <Volume2 className="w-5 h-5" />
                 </button>
               </div>
             ))}
@@ -467,7 +467,7 @@ export const DailyGoalView: React.FC<DailyGoalViewProps> = ({
             <button
               type="button"
               onClick={handleConfirmCluster}
-              className="w-full h-11 px-4 rounded-xl bg-emerald-600 text-white text-sm font-bold flex items-center justify-center gap-2 hover:bg-emerald-500 active:scale-[0.99] transition-all"
+              className="w-full h-12 px-5 rounded-xl bg-emerald-600 text-white text-base font-bold flex items-center justify-center gap-2 hover:bg-emerald-500 active:scale-[0.99] transition-all"
             >
               <Check className="w-5 h-5" />
               <span>Confirm Cluster ({currentSetWords.length}w)</span>
