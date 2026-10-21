@@ -1,0 +1,6 @@
+{
+  "name": "BCS Vocab Master — Distraction-Free Vocabulary Learning",
+  "description": "An Android-mobile-first, distraction-free BCS English & Bangla vocabulary learning application with audio pronunciation, 5-word daily flashcard sets, newly-learned priority quiz, and a 1,000-word interactive library.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
