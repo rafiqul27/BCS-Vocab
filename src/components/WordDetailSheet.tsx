@@ -97,24 +97,26 @@ export const WordDetailSheet: React.FC<WordDetailSheetProps> = ({
               <span>#{String(word.id).padStart(3, '0')}</span>
               <span aria-hidden="true">·</span>
               <span>Cluster #{String(word.clusterId).padStart(3, '0')}</span>
-              <span aria-hidden="true">·</span>
-              <span className="text-indigo-600 dark:text-indigo-400 font-bold">
+            </div>
+            <div className="flex items-baseline gap-2.5 min-w-0 flex-wrap mt-0.5">
+              <h2
+                id="word-detail-title"
+                className="text-3xl sm:text-4xl font-extrabold tracking-tight font-display break-words"
+              >
+                {word.word}
+              </h2>
+              <span className="text-sm font-mono-num font-bold text-indigo-600 dark:text-indigo-400">
                 {word.partOfSpeech}
               </span>
             </div>
-            <h2
-              id="word-detail-title"
-              className="text-3xl sm:text-4xl font-extrabold tracking-tight font-display mt-0.5 break-words"
-            >
-              {word.word}
-            </h2>
           </div>
 
           <div className="flex items-center gap-1.5 shrink-0">
             <button
               type="button"
-              onClick={() => handleSpeakWord(0.68, 'slow')}
+              onClick={() => handleSpeakWord(0.5, 'slow')}
               title="Slow pronunciation"
+              aria-label="Slow pronunciation"
               className={`h-11 w-11 rounded-xl flex items-center justify-center transition-colors ${
                 speakingMode === 'slow'
                   ? 'bg-indigo-600 text-white'

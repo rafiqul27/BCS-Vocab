@@ -236,12 +236,15 @@ export const WordLibraryView: React.FC<WordLibraryViewProps> = ({
                 </button>
 
                 <div className="min-w-0 flex-1">
-                  <div className="flex items-center gap-2 min-w-0">
+                  <div className="flex items-baseline gap-2 min-w-0">
                     <span className="text-base sm:text-lg font-extrabold font-display truncate">
                       {w.word}
                     </span>
-                    <span className="text-xs sm:text-sm font-mono-num opacity-60 shrink-0">
-                      #{String(w.id).padStart(3, '0')} · {w.partOfSpeech}
+                    <span className="text-xs sm:text-sm font-mono-num font-bold text-indigo-600 dark:text-indigo-400 shrink-0">
+                      {w.partOfSpeech}
+                    </span>
+                    <span className="text-xs font-mono-num opacity-55 shrink-0">
+                      #{String(w.id).padStart(3, '0')}
                     </span>
                   </div>
 
