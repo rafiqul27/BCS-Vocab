@@ -32,7 +32,7 @@ export const WordDetailSheet: React.FC<WordDetailSheetProps> = ({
 
   const isLearned = Boolean(learnedRecord);
 
-  const handleSpeakWord = (rate = 0.92, mode: 'word' | 'slow' = 'word') => {
+  const handleSpeakWord = (rate = 1.0, mode: 'word' | 'slow' = 'word') => {
     setSpeakingMode(mode);
     pronunciation.speak(word.word, {
       rate,
@@ -130,7 +130,7 @@ export const WordDetailSheet: React.FC<WordDetailSheetProps> = ({
 
             <button
               type="button"
-              onClick={() => handleSpeakWord(0.92, 'word')}
+              onClick={() => handleSpeakWord(1.0, 'word')}
               title="Pronounce"
               className={`h-11 w-11 rounded-xl flex items-center justify-center transition-colors ${
                 speakingMode === 'word'

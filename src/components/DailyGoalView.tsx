@@ -48,7 +48,7 @@ export const DailyGoalView: React.FC<DailyGoalViewProps> = ({
 
   useEffect(() => {
     if (autoPlayAudio && activeWord && !showOverview) {
-      pronunciation.speak(activeWord.word, { rate: 0.92 });
+      pronunciation.speak(activeWord.word, { rate: 1.0 });
     }
   }, [activeWord?.id, autoPlayAudio, showOverview]);
 
@@ -235,7 +235,7 @@ export const DailyGoalView: React.FC<DailyGoalViewProps> = ({
                 </button>
                 <button
                   type="button"
-                  onClick={() => handleSpeak(activeWord.word, 0.92, 'word')}
+                  onClick={() => handleSpeak(activeWord.word, 1.0, 'word')}
                   aria-label="Pronounce word"
                   className={`h-11 w-11 rounded-xl flex items-center justify-center transition-colors ${
                     speakingType === 'word'
@@ -449,7 +449,7 @@ export const DailyGoalView: React.FC<DailyGoalViewProps> = ({
                   type="button"
                   onClick={(e) => {
                     e.stopPropagation();
-                    handleSpeak(w.word, 0.92, 'word');
+                    handleSpeak(w.word, 1.0, 'word');
                   }}
                   aria-label={`Pronounce ${w.word}`}
                   className={`h-11 w-11 rounded-xl flex items-center justify-center shrink-0 transition-colors ${

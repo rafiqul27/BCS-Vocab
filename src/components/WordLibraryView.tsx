@@ -79,7 +79,7 @@ export const WordLibraryView: React.FC<WordLibraryViewProps> = ({
     e.stopPropagation();
     setSpeakingWordId(word.id);
     pronunciation.speak(word.word, {
-      rate: 0.92,
+      rate: 1.0,
       onEnd: () => setSpeakingWordId(null),
     });
   };

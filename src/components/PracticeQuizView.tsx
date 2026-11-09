@@ -205,11 +205,11 @@ export const PracticeQuizView: React.FC<PracticeQuizViewProps> = ({
 
   useEffect(() => {
     if (autoPlayAudio && activeWord && quizMode !== 'blank') {
-      pronunciation.speak(activeWord.word, { rate: 0.92 });
+      pronunciation.speak(activeWord.word, { rate: 1.0 });
     }
   }, [activeWord?.id, autoPlayAudio, quizMode]);
 
-  const handleSpeak = (text: string, rate = 0.92, mode: 'word' | 'slow' = 'word') => {
+  const handleSpeak = (text: string, rate = 1.0, mode: 'word' | 'slow' = 'word') => {
     setSpeakingMode(mode);
     pronunciation.speak(text, {
       rate,
@@ -235,7 +235,7 @@ export const PracticeQuizView: React.FC<PracticeQuizViewProps> = ({
     const isCorrect = optionWordId === activeWord.id;
     onRecordReview(activeWord.id, isCorrect);
     if (quizMode === 'blank') {
-      pronunciation.speak(activeWord.word, { rate: 0.92 });
+      pronunciation.speak(activeWord.word, { rate: 1.0 });
     }
   };
 
@@ -449,7 +449,7 @@ export const PracticeQuizView: React.FC<PracticeQuizViewProps> = ({
                   </button>
                   <button
                     type="button"
-                    onClick={() => handleSpeak(activeWord.word, 0.92, 'word')}
+                    onClick={() => handleSpeak(activeWord.word, 1.0, 'word')}
                     aria-label="Pronounce word"
                     title="Pronounce word"
                     className={`h-11 w-11 rounded-xl flex items-center justify-center transition-colors ${
