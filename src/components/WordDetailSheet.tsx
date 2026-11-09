@@ -114,7 +114,7 @@ export const WordDetailSheet: React.FC<WordDetailSheetProps> = ({
           <div className="flex items-center gap-1.5 shrink-0">
             <button
               type="button"
-              onClick={() => handleSpeakWord(0.5, 'slow')}
+              onClick={() => handleSpeakWord(0.7, 'slow')}
               title="Slow pronunciation"
               aria-label="Slow pronunciation"
               className={`h-11 w-11 rounded-xl flex items-center justify-center transition-colors ${

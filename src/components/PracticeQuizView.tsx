@@ -434,7 +434,7 @@ export const PracticeQuizView: React.FC<PracticeQuizViewProps> = ({
                 <div className="flex items-center gap-2 shrink-0">
                   <button
                     type="button"
-                    onClick={() => handleSpeak(activeWord.word, 0.5, 'slow')}
+                    onClick={() => handleSpeak(activeWord.word, 0.7, 'slow')}
                     aria-label="Slow pronunciation"
                     title="Slow pronunciation"
                     className={`h-11 w-11 rounded-xl flex items-center justify-center transition-colors ${

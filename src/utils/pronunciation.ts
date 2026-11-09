@@ -4,7 +4,7 @@ class PronunciationService {
   private synth: SpeechSynthesis | null = null;
   private voices: SpeechSynthesisVoice[] = [];
   private accent: VoiceAccent = 'en-GB';
-  private speakTimer: ReturnType<typeof setTimeout> | null = null;
+  private fallbackTimer: ReturnType<typeof setTimeout> | null = null;
 
   constructor() {
     if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
@@ -43,77 +43,68 @@ class PronunciationService {
       return;
     }
 
-    if (this.speakTimer) {
-      clearTimeout(this.speakTimer);
-      this.speakTimer = null;
+    if (this.fallbackTimer) {
+      clearTimeout(this.fallbackTimer);
+      this.fallbackTimer = null;
     }
-
-    const synth = this.synth;
-    const wasSpeaking = synth.speaking || synth.pending;
 
     try {
-      synth.cancel();
-    } catch {
-      // ignore cancel errors
-    }
+      this.synth.cancel();
 
-    const startUtterance = () => {
-      try {
-        const cleanText = text.replace(/^[•*]+\s*/, '').trim();
-        const utterance = new SpeechSynthesisUtterance(cleanText);
-        const targetLang = options?.accent || this.accent;
-        const requestedRate = options?.rate ?? 0.92;
+      const cleanText = text.replace(/^[•*]+\s*/, '').trim();
+      const utterance = new SpeechSynthesisUtterance(cleanText);
+      const targetLang = options?.accent || this.accent;
 
-        if (this.voices.length === 0) {
-          this.loadVoices();
-        }
-
-        // For slow tortoise mode (rate <= 0.65), prefer localService voice if available as some network voices ignore rate
-        const isSlowMode = requestedRate <= 0.65;
-        const preferredVoice =
-          (isSlowMode &&
-            this.voices.find(
-              (v) => v.lang.replace('_', '-') === targetLang && v.localService
-            )) ||
-          this.voices.find(
-            (v) =>
-              v.lang.replace('_', '-') === targetLang &&
-              (v.name.includes('Google') || v.name.includes('Natural'))
-          ) ||
-          this.voices.find((v) => v.lang.replace('_', '-') === targetLang) ||
-          this.voices.find((v) => v.lang.startsWith('en'));
-
-        if (preferredVoice) {
-          utterance.voice = preferredVoice;
-        }
-
-        utterance.lang = targetLang;
-        utterance.rate = requestedRate;
-        utterance.pitch = isSlowMode ? 0.95 : 1.0;
-
-        utterance.onstart = () => options?.onStart?.();
-        utterance.onend = () => options?.onEnd?.();
-        utterance.onerror = () => options?.onEnd?.();
-
-        synth. resume?.();
-        synth.speak(utterance);
-      } catch {
-        options?.onEnd?.();
+      if (this.voices.length === 0) {
+        this.loadVoices();
       }
-    };
 
-    // Small delay after cancel() when interrupting active speech prevents Android Chrome WebSpeech from dropping the new utterance
-    if (wasSpeaking) {
-      this.speakTimer = setTimeout(startUtterance, 40);
-    } else {
-      startUtterance();
+      // Use the same reliable voice for both normal (0.92x) and slow (0.7x) pronunciation
+      const preferredVoice =
+        this.voices.find(
+          (v) =>
+            v.lang.replace('_', '-') === targetLang &&
+            (v.name.includes('Google') || v.name.includes('Natural'))
+        ) ||
+        this.voices.find((v) => v.lang.replace('_', '-') === targetLang) ||
+        this.voices.find((v) => v.lang.startsWith('en'));
+
+      if (preferredVoice) {
+        utterance.voice = preferredVoice;
+      }
+
+      utterance.lang = targetLang;
+      utterance.rate = options?.rate ?? 0.92;
+      utterance.pitch = 1.0;
+
+      let finished = false;
+      const finish = () => {
+        if (finished) return;
+        finished = true;
+        if (this.fallbackTimer) {
+          clearTimeout(this.fallbackTimer);
+          this.fallbackTimer = null;
+        }
+        options?.onEnd?.();
+      };
+
+      utterance.onstart = () => options?.onStart?.();
+      utterance.onend = finish;
+      utterance.onerror = finish;
+
+      this.synth.speak(utterance);
+
+      // Safety fallback in case Android WebView doesn't fire onend
+      this.fallbackTimer = setTimeout(finish, 4000);
+    } catch {
+      options?.onEnd?.();
     }
   }
 
   public stop() {
-    if (this.speakTimer) {
-      clearTimeout(this.speakTimer);
-      this.speakTimer = null;
+    if (this.fallbackTimer) {
+      clearTimeout(this.fallbackTimer);
+      this.fallbackTimer = null;
     }
     if (this.synth) {
       this.synth.cancel();
